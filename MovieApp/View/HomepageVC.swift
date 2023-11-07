@@ -9,6 +9,8 @@ import UIKit
 
 class HomepageVC: UIViewController {
     
+    var movies = [Movie]()
+
     let navigationBar : UINavigationBar = {
        let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -30,14 +32,37 @@ class HomepageVC: UIViewController {
         return searchBar
     }()
 
+    let tableView : UITableView = {
+       let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .clear
+        tableView.isScrollEnabled = true
+//        tableView.separatorStyle = .none
+        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "movieCell")
+        return tableView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        let movie1 = Movie(movieName: "Batman Begins", movieImage: "batman", movieYear: 2005, movieDescription: "deneme")
+        movies.append(movie1)
+        movies.append(movie1)
+        movies.append(movie1)
+        movies.append(movie1)
+        movies.append(movie1)
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+
     }
 
     func setupViews(){
         view.backgroundColor = UIColor(named: "backgroundColor")
-        addViews()
+        view.addSubview(navigationBar)
+        view.addSubview(searchBar)
+        view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
             navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -47,6 +72,12 @@ class HomepageVC: UIViewController {
             searchBar.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 10),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
+//            tableView.heightAnchor.constraint(equalToConstant: 800)
         ])
        
         
@@ -60,6 +91,7 @@ class HomepageVC: UIViewController {
     func addViews() {
         view.addSubview(navigationBar)
         view.addSubview(searchBar)
+        view.addSubview(tableView)
     }
     
     @objc func bookmarksButtonClicked() {
@@ -67,3 +99,29 @@ class HomepageVC: UIViewController {
     }
 
 }
+
+extension HomepageVC : UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell") as! MovieTableViewCell
+        let movie = movies[indexPath.row]
+        cell.movieImage.image = UIImage(named: movie.movieImage)
+        cell.movieName.text = movie.movieName
+        cell.movieYear.text = String(movie.movieYear)
+        let movieNameAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "Helvetica-Bold", size: 22)!,
+            .foregroundColor: UIColor(named: "primaryColor")!
+        ]
+        cell.movieName.attributedText = NSAttributedString(string: movie.movieName, attributes: movieNameAttributes)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+    
+}
+

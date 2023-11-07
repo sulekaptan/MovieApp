@@ -14,7 +14,7 @@ class HomepageVC: UIViewController {
     let navigationBar : UINavigationBar = {
        let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        navigationBar.barTintColor = UIColor(named: "backgroundColor")
+        navigationBar.barTintColor = .systemGray5
         navigationBar.tintColor = .black
         navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationBar.isTranslucent = false
@@ -59,7 +59,7 @@ class HomepageVC: UIViewController {
     }
 
     func setupViews(){
-        view.backgroundColor = UIColor(named: "backgroundColor")
+        view.backgroundColor = .systemGray5
         view.addSubview(navigationBar)
         view.addSubview(searchBar)
         view.addSubview(tableView)
@@ -112,8 +112,8 @@ extension HomepageVC : UITableViewDelegate, UITableViewDataSource {
         cell.movieName.text = movie.movieName
         cell.movieYear.text = String(movie.movieYear)
         let movieNameAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: "Helvetica-Bold", size: 22)!,
-            .foregroundColor: UIColor(named: "primaryColor")!
+            .font: UIFont(name: "Helvetica-Bold", size: 20)!,
+            .foregroundColor: UIColor.black
         ]
         cell.movieName.attributedText = NSAttributedString(string: movie.movieName, attributes: movieNameAttributes)
         return cell

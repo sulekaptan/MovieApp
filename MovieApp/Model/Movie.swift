@@ -7,24 +7,10 @@
 
 import Foundation
 
-class Movie {
-    
-    var movieName:String
-    var movieImage:String
-    var movieYear:Int
-    var movieActors:String
-    var movieLocation:String
-    var movieRating:String
-    var movieDirector:String
-    
-    init(movieName: String, movieImage: String, movieYear: Int, movieActors: String, movieLocation: String, movieRating: String, movieDirector: String) {
-        self.movieName = movieName
-        self.movieImage = movieImage
-        self.movieYear = movieYear
-        self.movieActors = movieActors
-        self.movieLocation = movieLocation
-        self.movieRating = movieRating
-        self.movieDirector = movieDirector
-    }
-
+struct Movie: Codable {
+    let title, year: String
+    let runtime, genre, director, writer: String
+    let actors, plot: String
+    let poster: String
+    let imdbRating, imdbID: String
 }

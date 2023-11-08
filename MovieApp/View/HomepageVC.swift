@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomepageVC: UIViewController {
+class HomepageVC: UIViewController{
     
     var movies = [Movie]()
 
@@ -45,13 +45,13 @@ class HomepageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        
-        let movie1 = Movie(movieName: "Batman Begins", movieImage: "batman", movieYear: 2005, movieActors: "Christian Bale, Michael Kaine, Ken Watanabe", movieLocation: "United States, United Kingdom", movieRating: "8.2", movieDirector: "Christopher Nolan")
-        movies.append(movie1)
-        movies.append(movie1)
-        movies.append(movie1)
-        movies.append(movie1)
-        movies.append(movie1)
+//
+//        let movie1 = Movie(title: "Batman Begins", movieImage: "batman", year: 2005, actors: "Christian Bale, Michael Kaine, Ken Watanabe", movieLocation: "United States, United Kingdom", movieRating: "8.2", movieDirector: "Christopher Nolan")
+//        movies.append(movie1)
+//        movies.append(movie1)
+//        movies.append(movie1)
+//        movies.append(movie1)
+//        movies.append(movie1)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -108,14 +108,14 @@ extension HomepageVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell") as! MovieTableViewCell
         let movie = movies[indexPath.row]
-        cell.movieImage.image = UIImage(named: movie.movieImage)
-        cell.movieName.text = movie.movieName
-        cell.movieYear.text = String(movie.movieYear)
+        cell.movieImage.image = UIImage(named: movie.poster)
+        cell.movieName.text = movie.title
+        cell.movieYear.text = String(movie.year)
         let movieNameAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont(name: "Helvetica-Bold", size: 20)!,
             .foregroundColor: UIColor.black
         ]
-        cell.movieName.attributedText = NSAttributedString(string: movie.movieName, attributes: movieNameAttributes)
+        cell.movieName.attributedText = NSAttributedString(string: movie.title, attributes: movieNameAttributes)
         return cell
     }
     
@@ -126,14 +126,14 @@ extension HomepageVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = movies[indexPath.row]
         let detailVC = DetailVC(movie: movie)
-        detailVC.movieName.text = "Name: \(movie.movieName)"
-        detailVC.backgroundImageView.image = UIImage(named: movie.movieImage)
-        detailVC.movieYear.text = String("Year: \(movie.movieYear)")
-        detailVC.movieActors.text = "Actors: \(movie.movieActors)"
-        detailVC.movieDirector.text = "Director: \(movie.movieDirector)"
-        detailVC.movieLocation.text = "Location: \(movie.movieLocation)"
-        detailVC.movieRating.text = "IMDB Rating: \(movie.movieRating)"
-        detailVC.movieImage.image = UIImage(named: movie.movieImage)
+        detailVC.movieName.text = "Name: \(movie.title)"
+        detailVC.backgroundImageView.image = UIImage(named: movie.poster)
+        detailVC.movieYear.text = String("Year: \(movie.year)")
+        detailVC.movieActors.text = "Actors: \(movie.actors)"
+        detailVC.movieDirector.text = "Director: \(movie.director)"
+        detailVC.movieLocation.text = "Location: \(movie.plot)"
+        detailVC.movieRating.text = "IMDB Rating: \(movie.imdbRating)"
+        detailVC.movieImage.image = UIImage(named: movie.poster)
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 

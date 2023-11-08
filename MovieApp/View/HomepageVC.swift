@@ -46,7 +46,7 @@ class HomepageVC: UIViewController {
         super.viewDidLoad()
         setupViews()
         
-        let movie1 = Movie(movieName: "Batman Begins", movieImage: "batman", movieYear: 2005, movieDescription: "deneme")
+        let movie1 = Movie(movieName: "Batman Begins", movieImage: "batman", movieYear: 2005, movieActors: "Christian Bale, Michael Kaine, Ken Watanabe", movieLocation: "United States, United Kingdom", movieRating: "8.2", movieDirector: "Christopher Nolan")
         movies.append(movie1)
         movies.append(movie1)
         movies.append(movie1)
@@ -122,6 +122,21 @@ extension HomepageVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        let detailVC = DetailVC(movie: movie)
+        detailVC.movieName.text = "Name: \(movie.movieName)"
+        detailVC.backgroundImageView.image = UIImage(named: movie.movieImage)
+        detailVC.movieYear.text = String("Year: \(movie.movieYear)")
+        detailVC.movieActors.text = "Actors: \(movie.movieActors)"
+        detailVC.movieDirector.text = "Director: \(movie.movieDirector)"
+        detailVC.movieLocation.text = "Location: \(movie.movieLocation)"
+        detailVC.movieRating.text = "IMDB Rating: \(movie.movieRating)"
+        detailVC.movieImage.image = UIImage(named: movie.movieImage)
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+
     
 }
 

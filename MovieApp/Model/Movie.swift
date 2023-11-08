@@ -12,12 +12,19 @@ class Movie {
     var movieName:String
     var movieImage:String
     var movieYear:Int
-    var movieDescription:String
+    var movieActors:String
+    var movieLocation:String
+    var movieRating:String
+    var movieDirector:String
     
-    init(movieName: String, movieImage: String, movieYear: Int, movieDescription: String) {
+    init(movieName: String, movieImage: String, movieYear: Int, movieActors: String, movieLocation: String, movieRating: String, movieDirector: String) {
         self.movieName = movieName
         self.movieImage = movieImage
         self.movieYear = movieYear
-        self.movieDescription = movieDescription
+        self.movieActors = movieActors
+        self.movieLocation = movieLocation
+        self.movieRating = movieRating
+        self.movieDirector = movieDirector
     }
+
 }
